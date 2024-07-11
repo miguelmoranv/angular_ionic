@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Producto } from '../modelos/producto';
 import { ProductosService } from '../servicio/productos.service';
+import { ModalEditComponent } from '../tabs/modal-edit/modal-edit.component';
 
 
 @Component({
@@ -39,6 +40,24 @@ export class Tab1Page implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  async edit(item:any){
+    const modal = await this.modalCtrl.create({
+      component:ModalEditComponent,
+      componentProps:{
+        item
+      }
+    })
+    modal.present();
+
+    const {data, role} = await modal.onWillDismiss();
+    if(role ==='cofirm'){
+      console.log(`Hello, ${data}!`);
+    }
+  }
+  delete(item:any){
+    console.log(item)
   }
 
   
