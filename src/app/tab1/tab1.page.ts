@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ModalController } from '@ionic/angular';
 import { Producto } from '../modelos/producto';
 import { ProductosService } from '../servicio/productos.service';
 import { ModalEditComponent } from '../tabs/modal-edit/modal-edit.component';
-
 
 @Component({
   selector: 'app-tab1',
@@ -42,23 +40,27 @@ export class Tab1Page implements OnInit {
     );
   }
 
-  async edit(item:any){
+  async edit(item: Producto) {
     const modal = await this.modalCtrl.create({
-      component:ModalEditComponent,
-      componentProps:{
-        item
-      }
-    })
-    modal.present();
+      component: ModalEditComponent,
+      componentProps: { item }
+    });
+    await modal.present();
 
-    const {data, role} = await modal.onWillDismiss();
-    if(role ==='cofirm'){
-      console.log(`Hello, ${data}!`);
+    const { data, role } = await modal.onWillDismiss();
+    if (role === 'confirm') {
+      this.updateProductList(data);
     }
   }
-  delete(item:any){
-    console.log(item)
+
+  updateProductList(updatedProduct: Producto) {
+    const index = this.productList.findIndex(p => p._id === updatedProduct._id);
+    if (index > -1) {
+      this.productList[index] = updatedProduct;
+    }
   }
 
-  
+  delete(item: Producto) {
+    console.log(item);
+  }
 }
