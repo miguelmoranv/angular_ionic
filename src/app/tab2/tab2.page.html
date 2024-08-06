@@ -14,17 +14,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6" *ngFor="let photo of photos">
-        <ion-img [src]="photo"></ion-img>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button (click)="takePhoto()">
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+  <ion-button expand="full" (click)="openPhotoModal()">
+    View Photos
+  </ion-button>
 </ion-content>
